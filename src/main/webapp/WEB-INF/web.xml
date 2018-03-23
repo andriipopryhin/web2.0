@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<web-app version="2.4" 
-    xmlns="http://java.sun.com/xml/ns/j2ee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <welcome-file-list>
+        <welcome-file>/jsp/index.jsp</welcome-file>
+    </welcome-file-list>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:context.xml</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>Browse Servlet</servlet-name>
         <servlet-class>com.nixsolutions.usermanagement.web.BrowseServlet</servlet-class>
     </servlet>
-    
+
     <servlet>
         <servlet-name>Add Servlet</servlet-name>
         <servlet-class>com.nixsolutions.usermanagement.web.AddServlet</servlet-class>
@@ -34,5 +50,20 @@
         <servlet-name>Edit Servlet</servlet-name>
         <url-pattern>/edit</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:context.xml classpath:securityContext.xml
+        </param-value>
+    </context-param>
 
 </web-app>    

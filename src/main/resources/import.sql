@@ -1,0 +1,1 @@
+insert into users(firstname, lastname, login, password, dateofbirth) values('John', 'Michele', 'bigJo', '12345', '2011-12-24');

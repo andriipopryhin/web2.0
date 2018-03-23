@@ -11,7 +11,7 @@ import com.nixsolutions.usermanagement.User;
 
 public class HibernateUserDao implements UserDao{
     public SessionFactory getSessionFactory() {
-        return HibernateUtils.getSessionFactory();
+                return HibernateUtils.getSessionFactory();
     }
 
     public User create(User user) throws DatabaseException {

@@ -1,33 +1,46 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head><title>User management</title></head>
 <body>
-    <form action="<%=request.getContextPath()%>/browse" method="post">
-    <table id="userTable" border="1">
-        <tr>
+            <table id="userTable" border="1">
+            <tr>
             <th></th>
             <th>First name</th>
             <th>Last name</th>
             <th>Date of birth</th>
-        </tr>
-        <c:forEach var="user" items="${sessionScope.users}">
-        <tr>
-            <td><input type="radio" name="id" id="id" value="${user.id}"></td>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
-            <td>${user.dateOfBirth}</td>
-        </tr>
-        </c:forEach>
-    </table>
-    <input type="submit" name="addButton" value="Add">
-    <input type="submit" name="editButton" value="Edit">
-    <input type="submit" name="deleteButton" value="Delete">
-    <input type="submit" name="detailsButton" value="Details">
-    </form>
-<c:if test="${requestScope.error != null}">
+            <th>Action</th>
+            </tr>
+            <c:forEach var="user" items="${userList}">
+                <spring:url value="/users/edit.html" var="editUrl">
+                    <spring:param name="id" value="${user.id}"/>
+                </spring:url>
+                <spring:url value="/users/delete.html" var="deleteUrl">
+                    <spring:param name="id" value="${user.id}"/>
+                </spring:url>
+                <spring:url value="/users/details.html" var="detailsUrl">
+                    <spring:param name="id" value="${user.id}"/>
+                </spring:url>
+            <tr>
+                <td></td>
+                <td>${user.firstName}</td>
+                <td>${user.lastName}</td>
+                <td><f:formatDate value="${user.dateOfBirth}" pattern="dd.MM.yyyy"/></td>
+                <td>
+                    <a href="${editUrl}" >Edit</a>
+                    <a href="${deleteUrl}" >Delete</a>
+                    <a href="${detailsUrl}" >Details</a>
+                </td>
+            </tr>
+            </c:forEach>
+            </table>
+            <spring:url value="/users/add.html" var="addUrl"/>
+            <a href="${addUrl}" >Add</a>
+    <c:if test="${requestScope.error != null}">
     <script>
         alert('${requestScope.error}');
     </script>
-</c:if>
+    </c:if>
 </body>
 </html>

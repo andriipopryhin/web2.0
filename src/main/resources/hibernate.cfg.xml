@@ -7,13 +7,14 @@
     <session-factory>
         <!-- Настройка JDBC -->
         <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
-        <property name="hibernate.connection.url">jdbc:hsqldb:file:db/usermanagement</property>
+        <property name="hibernate.connection.url">jdbc:hsqldb:file:D:/db/usermanagement</property>
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.use_sql_comments">true</property>
         <property name="hibernate.format_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.hbm2ddl.auto">auto</property>
+        <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <mapping class="com.nixsolutions.usermanagement.User" />
     </session-factory>
